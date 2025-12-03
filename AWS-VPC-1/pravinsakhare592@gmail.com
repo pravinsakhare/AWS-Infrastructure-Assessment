@@ -125,7 +125,7 @@ The multi-AZ deployment ensures that if one availability zone experiences issues
 ## 📸 AWS Console Screenshots
 
 ### 1. VPC Overview
-![VPC Configuration](screenshots/01-vpc-overview.png)
+![VPC Configuration]()
 *VPC created with CIDR 10.0.0.0/16, ID: vpc-058175c600df5107a*
 
 ### 2. Internet Gateway
@@ -313,9 +313,8 @@ Through this implementation, I gained hands-on experience with:
 
 ## 📧 Contact
 
-**Project Author:** [Your Name]  
-**Date:** December 2024  
-**GitHub Repository:** [Link to Repository]
+**Project Author:** [Pravin Sakhare]  
+**03:** December 2025  
 
 ---
 
