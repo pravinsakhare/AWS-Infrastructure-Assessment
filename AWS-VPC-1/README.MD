@@ -125,47 +125,51 @@ The multi-AZ deployment ensures that if one availability zone experiences issues
 ## 📸 AWS Console Screenshots
 
 ### 1. VPC Overview
-![VPC Configuration]()
+![VPC Configuration](![alt text](./Screenshots/image.png))
 *VPC created with CIDR 10.0.0.0/16, ID: vpc-058175c600df5107a*
 
 ### 2. Internet Gateway
-![Internet Gateway](screenshots/02-internet-gateway.png)
+![Internet Gateway](![alt text](./Screenshots/image-1.png))
 *Internet Gateway attached to VPC for public subnet connectivity*
+![alt text](./Screenshots/image-2.png)
 
 ### 3. Subnets Configuration
-![All Subnets](screenshots/03-subnets-overview.png)
 *Four subnets created: 2 public (with auto-assign public IP) and 2 private subnets across two AZs*
+![alt text](./Screenshots/image-3.png)
+![alt text](./Screenshots/image-4.png)
+![alt text](./Screenshots/image-5.png)
+![alt text](./Screenshots/image-6.png)
 
 ### 4. Public Subnet Auto-assign IP Settings
-![Public Subnet Settings](screenshots/04-public-subnet-settings.png)
+![Public Subnet Settings](![alt text](./Screenshots/image-7.png))
 *Auto-assign public IPv4 address enabled for public subnets*
 
 ### 5. NAT Gateway
-![NAT Gateway](screenshots/05-nat-gateway.png)
+![NAT Gateway](![alt text](./Screenshots/image-8.png))
 *NAT Gateway deployed in public subnet with allocated Elastic IP*
 
 ### 6. Route Tables
-![Route Tables Overview](screenshots/06-route-tables.png)
+![Route Tables Overview]()
 *Public and Private route tables with appropriate route configurations*
 
 ### 7. Public Route Table Details
-![Public Route Table](screenshots/07-public-route-table.png)
+![Public Route Table](![alt text](./Screenshots/image-9.png))
 *Public route table routes internet traffic (0.0.0.0/0) to Internet Gateway*
 
 ### 8. Public Route Table Subnet Associations
-![Public Subnet Associations](screenshots/08-public-associations.png)
+![Public Subnet Associations](![alt text](./Screenshots/image-10.png))
 *Both public subnets associated with public route table*
 
 ### 9. Private Route Table Details
-![Private Route Table](screenshots/09-private-route-table.png)
+![Private Route Table](![alt text](./Screenshots/image-11.png))
 *Private route table routes internet traffic (0.0.0.0/0) to NAT Gateway*
 
 ### 10. Private Route Table Subnet Associations
-![Private Subnet Associations](screenshots/10-private-associations.png)
+![Private Subnet Associations](![alt text](./Screenshots/image-12.png))
 *Both private subnets associated with private route table*
 
 ### 11. Final Network Topology
-![Complete Infrastructure](screenshots/11-final-topology.png)
+![Complete Infrastructure](![alt text](./Screenshots/image-13.png))
 *Complete VPC infrastructure showing all components*
 
 ---
