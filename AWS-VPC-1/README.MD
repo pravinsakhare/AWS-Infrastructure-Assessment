@@ -149,7 +149,7 @@ The multi-AZ deployment ensures that if one availability zone experiences issues
 *NAT Gateway deployed in public subnet with allocated Elastic IP*
 
 ### 6. Route Tables
-![Route Tables Overview]()
+
 *Public and Private route tables with appropriate route configurations*
 
 ### 7. Public Route Table Details
