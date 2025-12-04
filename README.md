@@ -162,10 +162,10 @@ Throughout this assessment, I gained hands-on experience with:
 
 ## 📧 Contact
 
-**Name:** [Your Name]  
-**Email:** [your.email@example.com]  
-**LinkedIn:** [Your LinkedIn Profile]  
-**GitHub:** [Your GitHub Profile]
+**Name:** [Pravin Sakhare]  
+**Email:** [pravinsakhare592@gmail.com]  
+**LinkedIn:** [https://www.linkedin.com/in/pravinsakhare/]  
+**GitHub:** [https://github.com/pravinsakhare/]
 
 ---
 
