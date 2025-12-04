@@ -424,7 +424,7 @@ Throughout this assessment, I gained practical, hands-on experience with:
 - 📧 Email: [pravinsakhare592@gmail.com](mailto:pravinsakhare592@gmail.com)
 - 💼 LinkedIn: [linkedin.com/in/pravinsakhare](https://www.linkedin.com/in/pravinsakhare/)
 - 🐙 GitHub: [github.com/pravinsakhare](https://github.com/pravinsakhare/)
-- 🌐 Portfolio: [Coming Soon]
+- 🌐 Portfolio: [www.pravinsakahre.in](https://pravinsakhare.in)
 
 Feel free to reach out for:
 - Questions about this project
