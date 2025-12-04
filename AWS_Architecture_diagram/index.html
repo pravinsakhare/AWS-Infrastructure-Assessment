@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Scalable Architecture - Visual Reference</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #232f3e;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .architecture {
+            position: relative;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .layer {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .layer-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .edge-layer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .public-layer {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        
+        .app-layer {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: #333;
+        }
+        
+        .cache-layer {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: #333;
+        }
+        
+        .db-layer {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+        }
+        
+        .monitoring-layer {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        
+        .components {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        .component {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .component:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+        }
+        
+        .edge-layer .component,
+        .public-layer .component,
+        .db-layer .component,
+        .monitoring-layer .component {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+        }
+        
+        .component-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        
+        .component-name {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #232f3e;
+        }
+        
+        .component-desc {
+            font-size: 11px;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        .az-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .az-box {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 12px;
+            border-radius: 6px;
+            border: 2px dashed rgba(0, 0, 0, 0.2);
+        }
+        
+        .az-title {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-align: center;
+            color: #232f3e;
+        }
+        
+        .az-instance {
+            background: white;
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            font-size: 11px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .flow-arrow {
+            text-align: center;
+            font-size: 24px;
+            color: #232f3e;
+            margin: 10px 0;
+        }
+        
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+        }
+        
+        .legend-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+        
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .metric-value {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .security-badge {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            margin: 3px;
+        }
+        
+        @media (max-width: 768px) {
+            .components, .az-container, .legend, .metrics {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏗️ AWS Highly Scalable Web Application Architecture</h1>
+        <p class="subtitle">Designed for 10,000+ Concurrent Users | Multi-AZ | Auto-Scaling</p>
+        
+        <div class="metrics">
+            <div class="metric-card">
+                <div class="metric-value">10K+</div>
+                <div class="metric-label">Concurrent Users</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">99.99%</div>
+                <div class="metric-label">Uptime SLA</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">3 AZs</div>
+                <div class="metric-label">Availability Zones</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">&lt;100ms</div>
+                <div class="metric-label">Response Time</div>
+            </div>
+        </div>
+        
+        <div class="architecture">
+            <!-- Edge Layer -->
+            <div class="layer edge-layer">
+                <div class="layer-title">
+                    🌐 Edge Layer - Global Distribution & Security
+                </div>
+                <div class="components">
+                    <div class="component">
+                        <div class="component-icon">🌍</div>
+                        <div class="component-name">Route 53</div>
+                        <div class="component-desc">DNS routing with health checks and failover</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">⚡</div>
+                        <div class="component-name">CloudFront</div>
+                        <div class="component-desc">Global CDN with edge caching and DDoS protection</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">🛡️</div>
+                        <div class="component-name">AWS WAF</div>
+                        <div class="component-desc">Web application firewall with rate limiting</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flow-arrow">⬇️</div>
+            
+            <!-- Public Layer -->
+            <div class="layer public-layer">
+                <div class="layer-title">
+                    🌐 Public Subnets - Load Balancing
+                </div>
+                <div class="components">
+                    <div class="component">
+                        <div class="component-icon">🔀</div>
+                        <div class="component-name">Application Load Balancer</div>
+                        <div class="component-desc">Layer 7 load balancing with SSL termination</div>
+                        <div style="margin-top: 8px;">
+                            <span class="security-badge">HTTPS:443</span>
+                            <span class="security-badge">HTTP:80</span>
+                        </div>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">🌐</div>
+                        <div class="component-name">Internet Gateway</div>
+                        <div class="component-desc">VPC internet connectivity for public subnets</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">🔄</div>
+                        <div class="component-name">NAT Gateways (3)</div>
+                        <div class="component-desc">One per AZ for private subnet internet access</div>
+                    </div>
+                </div>
+                <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.2); border-radius: 5px; font-size: 12px; text-align: center;">
+                    <strong>Subnets:</strong> 10.0.1.0/24 (AZ-A) | 10.0.2.0/24 (AZ-B) | 10.0.3.0/24 (AZ-C)
+                </div>
+            </div>
+            
+            <div class="flow-arrow">⬇️</div>
+            
+            <!-- Application Layer -->
+            <div class="layer app-layer">
+                <div class="layer-title">
+                    💻 Private Subnets - Application Tier (Auto Scaling)
+                </div>
+                <div class="az-container">
+                    <div class="az-box">
+                        <div class="az-title">🏢 AZ-A (us-east-1a)</div>
+                        <div class="az-instance">🖥️ EC2 Instance 1<br>t3.medium</div>
+                        <div class="az-instance">🖥️ EC2 Instance 2<br>t3.medium</div>
+                        <div style="font-size: 10px; margin-top: 8px; text-align: center;">10.0.11.0/24</div>
+                    </div>
+                    <div class="az-box">
+                        <div class="az-title">🏢 AZ-B (us-east-1b)</div>
+                        <div class="az-instance">🖥️ EC2 Instance 3<br>t3.medium</div>
+                        <div class="az-instance">🖥️ EC2 Instance 4<br>t3.medium</div>
+                        <div style="font-size: 10px; margin-top: 8px; text-align: center;">10.0.12.0/24</div>
+                    </div>
+                    <div class="az-box">
+                        <div class="az-title">🏢 AZ-C (us-east-1c)</div>
+                        <div class="az-instance">🖥️ EC2 Instance 5<br>t3.medium</div>
+                        <div class="az-instance">🖥️ EC2 Instance 6<br>t3.medium</div>
+                        <div style="font-size: 10px; margin-top: 8px; text-align: center;">10.0.13.0/24</div>
+                    </div>
+                </div>
+                <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.8); border-radius: 5px; font-size: 12px; text-align: center;">
+                    <strong>Auto Scaling:</strong> Min: 4 | Desired: 6 | Max: 20 instances
+                    <div style="margin-top: 5px;">
+                        <span class="security-badge" style="background: #43e97b; color: #333;">Target Tracking: 70% CPU</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flow-arrow">⬇️</div>
+            
+            <!-- Cache Layer -->
+            <div class="layer cache-layer">
+                <div class="layer-title">
+                    ⚡ Private Subnets - Cache Layer (ElastiCache Redis)
+                </div>
+                <div class="components">
+                    <div class="component">
+                        <div class="component-icon">💾</div>
+                        <div class="component-name">Redis Primary</div>
+                        <div class="component-desc">cache.r6g.large<br>AZ-A (10.0.31.0/24)</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">💾</div>
+                        <div class="component-name">Redis Replica 1</div>
+                        <div class="component-desc">cache.r6g.large<br>AZ-B (10.0.32.0/24)</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">📊</div>
+                        <div class="component-name">Cache Usage</div>
+                        <div class="component-desc">Session storage, Query cache, Rate limiting<br><strong>Target: 85% hit rate</strong></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flow-arrow">⬇️</div>
+            
+            <!-- Database Layer -->
+            <div class="layer db-layer">
+                <div class="layer-title">
+                    🗄️ Private Subnets - Database Layer (Aurora MySQL)
+                </div>
+                <div class="az-container">
+                    <div class="az-box" style="border-color: rgba(255,255,255,0.3);">
+                        <div class="az-title" style="color: white;">💾 AZ-A</div>
+                        <div class="az-instance">
+                            <strong>Aurora Writer</strong><br>
+                            db.r6g.xlarge<br>
+                            Primary Instance
+                        </div>
+                        <div style="font-size: 10px; margin-top: 8px; text-align: center; color: white;">10.0.21.0/24</div>
+                    </div>
+                    <div class="az-box" style="border-color: rgba(255,255,255,0.3);">
+                        <div class="az-title" style="color: white;">💾 AZ-B</div>
+                        <div class="az-instance">
+                            <strong>Aurora Reader 1</strong><br>
+                            db.r6g.xlarge<br>
+                            Read Replica
+                        </div>
+                        <div style="font-size: 10px; margin-top: 8px; text-align: center; color: white;">10.0.22.0/24</div>
+                    </div>
+                    <div class="az-box" style="border-color: rgba(255,255,255,0.3);">
+                        <div class="az-title" style="color: white;">💾 AZ-C</div>
+                        <div class="az-instance">
+                            <strong>Aurora Reader 2</strong><br>
+                            db.r6g.xlarge<br>
+                            Read Replica
+                        </div>
+                        <div style="font-size: 10px; margin-top: 8px; text-align: center; color: white;">10.0.23.0/24</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flow-arrow">⬇️</div>
+            
+            <!-- Monitoring & Storage Layer -->
+            <div class="layer monitoring-layer">
+                <div class="layer-title">
+                    📊 Monitoring, Logging & Storage
+                </div>
+                <div class="components">
+                    <div class="component">
+                        <div class="component-icon">📈</div>
+                        <div class="component-name">CloudWatch</div>
+                        <div class="component-desc">Metrics, Logs, Alarms, Dashboards</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">🔍</div>
+                        <div class="component-name">X-Ray</div>
+                        <div class="component-desc">Distributed tracing and performance analysis</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">🗃️</div>
+                        <div class="component-name">S3</div>
+                        <div class="component-desc">Static assets, logs, backups</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">🔐</div>
+                        <div class="component-name">Secrets Manager</div>
+                        <div class="component-desc">Database credentials and API keys</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">🌊</div>
+                        <div class="component-name">VPC Flow Logs</div>
+                        <div class="component-desc">Network traffic analysis and forensics</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">🛡️</div>
+                        <div class="component-name">GuardDuty</div>
+                        <div class="component-desc">Intelligent threat detection</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                <div><strong>Edge Layer:</strong> DNS, CDN, WAF</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                <div><strong>Public Subnets:</strong> Load balancers, NAT</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
+                <div><strong>App Tier:</strong> EC2 Auto Scaling</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
+                <div><strong>Cache Layer:</strong> ElastiCache Redis</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);"></div>
+                <div><strong>Database Layer:</strong> Aurora MySQL</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                <div><strong>Monitoring:</strong> CloudWatch, X-Ray, S3</div>
+            </div>
+        </div>
+        
+        <!-- Security Features -->
+        <div style="margin-top: 30px; padding: 20px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 5px;">
+            <h3 style="color: #856404; margin-bottom: 10px;">🔒 Security Features</h3>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; font-size: 13px; color: #856404;">
+                <div>✅ AWS WAF with OWASP rules</div>
+                <div>✅ Security Groups (instance-level)</div>
+                <div>✅ NACLs (subnet-level)</div>
+                <div>✅ Private subnets for backend</div>
+                <div>✅ Encryption at rest & transit</div>
+                <div>✅ IAM roles (no hardcoded keys)</div>
+                <div>✅ VPC Flow Logs enabled</div>
+                <div>✅ GuardDuty threat detection</div>
+                <div>✅ CloudTrail API auditing</div>
+            </div>
+        </div>
+        
+        <!-- Traffic Flow -->
+        <div style="margin-top: 20px; padding: 20px; background: #d1ecf1; border-left: 4px solid #17a2b8; border-radius: 5px;">
+            <h3 style="color: #0c5460; margin-bottom: 10px;">🔄 Traffic Flow Path</h3>
+            <div style="font-size: 13px; color: #0c5460; line-height: 1.8;">
+                <strong>Request:</strong> User → Route 53 → CloudFront → WAF → ALB → EC2 (checks Redis cache) → Aurora DB<br>
+                <strong>Response:</strong> Aurora → EC2 (caches in Redis) → ALB → CloudFront → User<br>
+                <strong>Cache Hit:</strong> User → CloudFront → WAF → ALB → EC2 → Redis → ALB → User (&lt;50ms)
+            </div>
+        </div>
+    </div>
+</body>
+</html>
