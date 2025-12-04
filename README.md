@@ -13,10 +13,10 @@ This repository contains my AWS infrastructure assessment showcasing hands-on ex
 ## 📋 Table of Contents
 
 1. [Task 1: VPC Networking & Subnetting](#task-1-vpc-networking--subnetting)
-2. [Task 2: [Task Name]](#task-2)
-3. [Task 3: [Task Name]](#task-3)
-4. [Task 4: [Task Name]](#task-4)
-5. [Task 5: [Task Name]](#task-5)
+2. [Task 2: Ec2 Web Hosting](#task-2)
+3. [Task 3: High Availabililty and auto scaling](#task-3)
+4. [Task 4: AWS Billing Alarm Monitoring and logging ](#task-4)
+5. [Task 5: AWS Highly available and Scalable Digram overview with brief](#task-5)
 
 ---
 
